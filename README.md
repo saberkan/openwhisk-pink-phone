@@ -4,10 +4,11 @@ https://docs.openshift.org/latest/minishift/getting-started/preparing-to-install
 
 # Sources :
 https://github.com/projectodd/openwhisk-openshift.git
+
 https://github.com/redhat-developer-demos/faas-tutorial#prerequisites
 
 # Prepare minishift
-# Configure minishift
+## Configure minishift
 <pre>
 minishift profile set faas-tutorial
 minishift config set memory 10GB
@@ -17,7 +18,7 @@ minishift addon enable admin-user
 minishift addon enable anyuid
 </pre>
 
-# Start
+## Start
 <pre>
 minishift start --insecure-registry docker.io:5000 --show-libmachine-logs
 minishift ssh -- sudo ip link set docker0 promisc on
@@ -31,20 +32,20 @@ minishift openshift config set --patch \
                          "resolveImages": "AttemptRewrite"}}}}}'
 </pre>
 
-# Login
+## Login
 <pre>
 eval $(minishift oc-env) && eval $(minishift docker-env)
 oc login $(minishift ip):8443 -u admin -p admin
 </pre>
 
-# Fix registry (if PullBack error)
+## Fix registry (if PullBack error)
 <pre>
 oc project default
 oc rollout latest dc/docker-registry
 docker login -u developer -p $(oc whoami -t) $(minishift openshift registry)
 </pre>
 
-# Configure namespace
+## Configure namespace
 <pre>
 oc new-project faas
 oc project -q 
@@ -52,13 +53,13 @@ oc process -f https://git.io/openwhisk-template | oc create -f -
 oc adm policy add-role-to-user admin developer -n faas
 </pre>
 
-# Install client wsk
+## Install client wsk
 <pre>
 wget https://github.com/apache/incubator-openwhisk-cli/releases/download/latest/OpenWhisk_CLI-latest-mac-386.zip
 export PATH="/Users/saberkan/Documents/Technologies/Openwhisk/OpenWhisk_CLI-latest-mac-386:$PATH 
 </pre>
 
-# Test wsk
+## Test wsk
 <pre>
 git pull https://github.com/redhat-developer-demos/faas-tutorial
 cd faas-tutorial/solutions/getstarted/
