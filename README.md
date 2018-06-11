@@ -56,7 +56,7 @@ oc adm policy add-role-to-user admin developer -n faas
 ## Install client wsk
 <pre>
 wget https://github.com/apache/incubator-openwhisk-cli/releases/download/latest/OpenWhisk_CLI-latest-mac-386.zip
-export PATH="/Users/saberkan/Documents/Technologies/Openwhisk/OpenWhisk_CLI-latest-mac-386:$PATH 
+export PATH="%path_to_openwhsik%:$PATH"
 </pre>
 
 ## Test wsk
